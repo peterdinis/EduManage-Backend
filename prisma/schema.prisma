@@ -9,19 +9,22 @@ datasource db {
 }
 
 model Student {
-  id         Int       @id @default(autoincrement())
-  firstName  String
-  lastName   String
-  email      String    @unique
-  dateOfBirth DateTime
-  enrollments Enrollment[]
+  id           Int           @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String        @unique
+  dateOfBirth  DateTime
+  enrollments  Enrollment[]
+  attendances  Attendance[]
+  grades       Grade[]
+  parentLinks  ParentStudent[]
 }
 
 model Teacher {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   firstName String
   lastName  String
-  email     String   @unique
+  email     String    @unique
   subjects  Subject[]
 }
 
@@ -34,19 +37,68 @@ model Subject {
 }
 
 model Class {
-  id        Int      @id @default(autoincrement())
-  name      String
-  subjectId Int
-  subject   Subject  @relation(fields: [subjectId], references: [id])
+  id          Int          @id @default(autoincrement())
+  name        String
+  subjectId   Int
+  subject     Subject      @relation(fields: [subjectId], references: [id])
   enrollments Enrollment[]
+  attendances Attendance[]
+  grades      Grade[]
 }
 
 model Enrollment {
-  id        Int     @id @default(autoincrement())
-  studentId Int
-  classId   Int
+  id         Int      @id @default(autoincrement())
+  studentId  Int
+  classId    Int
   enrolledAt DateTime @default(now())
 
-  student  Student  @relation(fields: [studentId], references: [id])
-  class    Class    @relation(fields: [classId], references: [id])
+  student    Student  @relation(fields: [studentId], references: [id])
+  class      Class    @relation(fields: [classId], references: [id])
+}
+
+model Parent {
+  id           Int              @id @default(autoincrement())
+  name         String
+  email        String           @unique
+  phone        String
+  studentLinks ParentStudent[]
+}
+
+model ParentStudent {
+  parentId  Int
+  studentId Int
+
+  parent    Parent  @relation(fields: [parentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
+
+  @@id([parentId, studentId])
+}
+
+model Attendance {
+  id         Int               @id @default(autoincrement())
+  date       DateTime
+  status     AttendanceStatus
+  studentId  Int
+  classId    Int
+
+  student    Student           @relation(fields: [studentId], references: [id])
+  class      Class             @relation(fields: [classId], references: [id])
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  EXCUSED
+  LATE
+}
+
+model Grade {
+  id         Int       @id @default(autoincrement())
+  value      Float
+  studentId  Int
+  classId    Int
+  gradedAt   DateTime  @default(now())
+
+  student    Student   @relation(fields: [studentId], references: [id])
+  class      Class     @relation(fields: [classId], references: [id])
 }
