@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BadRequestException } from '@nestjs/common';
+import { faker } from '@faker-js/faker';
 import { SendEmailInput } from '../dto/send-email-input.dto';
 import { MailtrapResolver } from '../mailtrap.resolver';
 import { MailtrapService } from '../mailtrap.service';
@@ -27,9 +28,9 @@ describe('MailtrapResolver', () => {
 
   it('should send email successfully', async () => {
     const input: SendEmailInput = {
-      to: 'test@example.com',
-      subject: 'Test Subject',
-      message: 'Test Message',
+      to: faker.internet.email(),
+      subject: faker.lorem.sentence(),
+      message: faker.lorem.paragraph(),
     };
 
     jest.spyOn(service, 'sendMail').mockResolvedValue(true);
@@ -45,9 +46,9 @@ describe('MailtrapResolver', () => {
 
   it('should throw BadRequestException on failure', async () => {
     const input: SendEmailInput = {
-      to: 'fail@example.com',
-      subject: 'Fail Subject',
-      message: 'Fail Message',
+      to: faker.internet.email(),
+      subject: faker.lorem.sentence(),
+      message: faker.lorem.paragraph(),
     };
 
     jest.spyOn(service, 'sendMail').mockResolvedValue(false);
