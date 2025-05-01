@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
+import { StudentModule } from 'src/student/student.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     PrismaModule,
-    MailtrapModule
+    MailtrapModule,
+    StudentModule
   ],
   providers: [AppResolver, AppService],
 })
