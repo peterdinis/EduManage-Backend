@@ -40,7 +40,7 @@ describe('MailtrapResolver', () => {
     expect(service.sendMail).toHaveBeenCalledWith(
       input.to,
       input.subject,
-      input.message
+      input.message,
     );
   });
 
@@ -53,6 +53,8 @@ describe('MailtrapResolver', () => {
 
     jest.spyOn(service, 'sendMail').mockResolvedValue(false);
 
-    await expect(resolver.sendEmail(input)).rejects.toThrow(BadRequestException);
+    await expect(resolver.sendEmail(input)).rejects.toThrow(
+      BadRequestException,
+    );
   });
 });
