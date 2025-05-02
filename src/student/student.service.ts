@@ -31,7 +31,7 @@ export class StudentService {
     return student;
   }
 
-  async profile(studentId: string) {
+  async profile(studentId: number) {
     return this.prisma.student.findUnique({ where: { id: studentId } });
   }
 
@@ -46,7 +46,6 @@ export class StudentService {
       },
       include: {
         subject: true,
-        teacher: true,
       },
     });
   }
