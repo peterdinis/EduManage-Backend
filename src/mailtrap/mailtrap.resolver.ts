@@ -8,13 +8,11 @@ export class MailtrapResolver {
   constructor(private readonly mailtrapService: MailtrapService) {}
 
   @Mutation(() => Boolean)
-  async sendEmail(
-    @Args('input') input: SendEmailInput
-  ): Promise<boolean> {
+  async sendEmail(@Args('input') input: SendEmailInput): Promise<boolean> {
     const success = await this.mailtrapService.sendMail(
       input.to,
       input.subject,
-      input.message
+      input.message,
     );
 
     if (!success) {

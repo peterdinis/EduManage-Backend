@@ -16,7 +16,7 @@ import { StudentModule } from 'src/student/student.module';
     }),
     PrismaModule,
     MailtrapModule,
-    StudentModule
+    StudentModule,
   ],
   providers: [AppResolver, AppService],
 })
