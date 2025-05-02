@@ -7,6 +7,7 @@ import { AppResolver } from './app.resolver';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
 import { StudentModule } from 'src/student/student.module';
+import { UploadModule } from 'src/upload/upload.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { StudentModule } from 'src/student/student.module';
     PrismaModule,
     MailtrapModule,
     StudentModule,
+    UploadModule
   ],
   providers: [AppResolver, AppService],
 })
