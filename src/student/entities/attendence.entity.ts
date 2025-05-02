@@ -2,15 +2,15 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Class } from './class.entity';
 
 @ObjectType()
-export class Grade {
+export class Attendance {
   @Field(() => Int)
   id: number;
 
   @Field()
-  value: number;
+  date: Date;
 
   @Field()
-  gradedAt: Date;
+  status: string;
 
   @Field(() => Class)
   class: Class;

@@ -33,4 +33,40 @@ export class StudentService {
   async profile(studentId: string) {
     return this.prisma.student.findUnique({ where: { id: studentId } });
   }
+
+  async getStudentClasses(studentId: number) {
+    return this.prisma.class.findMany({
+      where: {
+        enrollments: {
+          some: {
+            studentId,
+          },
+        },
+      },
+      include: {
+        subject: true,
+        teacher: true,
+      },
+    });
+  }
+
+  // Get all attendance records for the student
+  async getStudentAttendance(studentId: number) {
+    return this.prisma.attendance.findMany({
+      where: { studentId },
+      include: {
+        class: true,
+      },
+    });
+  }
+
+  // Get all grades for the student
+  async getStudentGrades(studentId: number) {
+    return this.prisma.grade.findMany({
+      where: { studentId },
+      include: {
+        class: true,
+      },
+    });
+  }
 }
