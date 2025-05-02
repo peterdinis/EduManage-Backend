@@ -6,10 +6,11 @@ import { Student } from './entities/student.entity';
 import { Attendance } from './entities/attendence.entity';
 import { Class } from './entities/class.entity';
 import { Grade } from './entities/grade.entity';
+import { UpdateStudentInput } from './dto/update-student-profile.dto';
 
 @Resolver(() => Student)
 export class StudentResolver {
-  constructor(private readonly studentService: StudentService) {}
+  constructor(private readonly studentService: StudentService) { }
 
   @Mutation(() => Student)
   async registerStudent(
@@ -47,5 +48,12 @@ export class StudentResolver {
     @Args('studentId', { type: () => Int }) studentId: number,
   ) {
     return this.studentService.getStudentGrades(studentId);
+  }
+
+  @Mutation(() => Student)
+  async updateStudentProfile(
+    @Args('data') data: UpdateStudentInput,
+  ): Promise<Student> {
+    return this.studentService.updateProfile(data);
   }
 }

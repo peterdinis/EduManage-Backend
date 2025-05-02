@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { RegisterStudentInput } from './dto/register-student-input';
 import { LoginInput } from './dto/login-student-input';
 import * as bcrypt from 'bcrypt';
+import { UpdateStudentInput } from './dto/update-student-profile.dto';
 
 @Injectable()
 export class StudentService {
@@ -49,8 +50,7 @@ export class StudentService {
       },
     });
   }
-
-  // Get all attendance records for the student
+  
   async getStudentAttendance(studentId: number) {
     return this.prisma.attendance.findMany({
       where: { studentId },
@@ -60,13 +60,21 @@ export class StudentService {
     });
   }
 
-  // Get all grades for the student
   async getStudentGrades(studentId: number) {
     return this.prisma.grade.findMany({
       where: { studentId },
       include: {
         class: true,
       },
+    });
+  }
+
+  async updateProfile(data: UpdateStudentInput) {
+    const { id, ...rest } = data;
+  
+    return this.prisma.student.update({
+      where: { id },
+      data: rest,
     });
   }
 }
