@@ -7,7 +7,7 @@ import { CatchEverythingFilter } from './shared/filters/catch-everything.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors()
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new CatchEverythingFilter());
   app.useGlobalInterceptors(new LoggerInterceptor());
