@@ -9,7 +9,7 @@ export interface FileUpload {
   createReadStream: () => ReadStream;
 }
 
-@Scalar('Upload') // ✅ Do not reference FileUpload here
+@Scalar('Upload')
 export class UploadScalar extends GraphQLScalarType {
   constructor() {
     super({
