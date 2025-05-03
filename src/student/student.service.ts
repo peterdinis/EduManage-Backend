@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { parseISO } from 'date-fns';
 import { JwtService } from '@nestjs/jwt';
+import { LoginInput, LoginResponse } from './dto/login-student-input';
 
 @Injectable()
 export class StudentService {
