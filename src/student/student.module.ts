@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from 'src/prisma/prisma.module';
-import { StudentResolver } from './student.resolver';
 import { StudentService } from './student.service';
-import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
+import { StudentResolver } from './student.resolver';
+import { PrismaService } from '../prisma/prisma.service';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './auth/jwt.strategy';
 
 @Module({
-  imports: [PrismaModule, MailtrapModule],
-  providers: [StudentResolver, StudentService],
+  imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'supersecret',
+      signOptions: { expiresIn: '1d' },
+    }),
+  ],
+  providers: [StudentService, StudentResolver, PrismaService, JwtStrategy],
 })
 export class StudentModule {}
