@@ -5,7 +5,7 @@ import { UploadService } from './upload.service';
 
 @Resolver(() => UploadFile)
 export class UploadResolver {
-  constructor(private readonly uploadFileService: UploadService) { }
+  constructor(private readonly uploadFileService: UploadService) {}
 
   @Mutation(() => UploadFile)
   async uploadFile(@Args('input') input: CreateUploadInput) {

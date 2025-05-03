@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args, Query} from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { StudentService } from './student.service';
 import { LoginInput, LoginResponse } from './dto/login-student-input';
 import { RegisterStudentInput } from './dto/register-student-input';
@@ -51,9 +51,7 @@ export class StudentResolver {
 
   @Mutation(() => Student)
   @UseGuards(GqlAuthGuard)
-  async updateStudentProfile(
-    @Args('data') data: UpdateStudentInput,
-  ) {
+  async updateStudentProfile(@Args('data') data: UpdateStudentInput) {
     return this.studentService.updateProfile(data);
   }
 }

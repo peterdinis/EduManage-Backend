@@ -21,7 +21,7 @@ import { TeacherModule } from 'src/teacher/teacher.module';
     MailtrapModule,
     StudentModule,
     UploadModule,
-    TeacherModule
+    TeacherModule,
   ],
   providers: [AppResolver, AppService],
 })
