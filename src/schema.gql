@@ -2,6 +2,82 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Student {
+  id: ID!
+  name: String!
+  email: String!
+  createdAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Subject {
+  id: Int!
+  name: String!
+}
+
+type Class {
+  id: Int!
+  name: String!
+  subject: Subject!
+}
+
+type Attendance {
+  id: Int!
+  date: DateTime!
+  status: String!
+  class: Class!
+}
+
+type Grade {
+  id: Int!
+  value: Float!
+  gradedAt: DateTime!
+  class: Class!
+}
+
 type Query {
   hello: String!
+  studentProfile(id: Int!): Student!
+  studentClasses(studentId: Int!): [Class!]!
+  studentAttendance(studentId: Int!): [Attendance!]!
+  studentGrades(studentId: Int!): [Grade!]!
+}
+
+type Mutation {
+  sendEmail(input: SendEmailInput!): Boolean!
+  registerStudent(data: RegisterStudentInput!): Student!
+  loginStudent(data: LoginInput!): Student!
+  updateStudentProfile(data: UpdateStudentInput!): Student!
+}
+
+input SendEmailInput {
+  to: String!
+  subject: String!
+  message: String!
+}
+
+input RegisterStudentInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  dateOfBirth: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UpdateStudentInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  dateOfBirth: String
+  id: Float!
 }
