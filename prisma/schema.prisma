@@ -57,6 +57,14 @@ model Enrollment {
   student    Student  @relation(fields: [studentId], references: [id])
 }
 
+model UploadFile {
+  id        Int      @id @default(autoincrement())
+  filename  String
+  mimetype  String
+  path      String
+  createdAt DateTime @default(now())
+}
+
 model Parent {
   id           Int             @id @default(autoincrement())
   name         String

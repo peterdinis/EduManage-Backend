@@ -7,16 +7,19 @@ import { AppResolver } from './app.resolver';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
 import { StudentModule } from 'src/student/student.module';
+import { UploadModule } from 'src/upload/upload.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     PrismaModule,
     MailtrapModule,
     StudentModule,
+    UploadModule
   ],
   providers: [AppResolver, AppService],
 })
