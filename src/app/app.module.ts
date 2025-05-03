@@ -16,6 +16,9 @@ import { TeacherModule } from 'src/teacher/teacher.module';
       driver: ApolloDriver,
       debug: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      subscriptions: {
+        "graphql-ws": true
+      }
     }),
     PrismaModule,
     MailtrapModule,
