@@ -4,6 +4,7 @@ import { RegisterStudentInput } from './dto/register-student-input';
 import { LoginInput } from './dto/login-student-input';
 import * as bcrypt from 'bcrypt';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
+import { parseISO } from 'date-fns';
 
 @Injectable()
 export class StudentService {
@@ -11,10 +12,19 @@ export class StudentService {
 
   async register(data: RegisterStudentInput) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const parsedDateOfBirth =
+      typeof data.dateOfBirth === 'string'
+        ? parseISO(data.dateOfBirth)
+        : data.dateOfBirth;
+
     return this.prisma.student.create({
       data: {
-        ...data,
+        email: data.email,
         password: hashedPassword,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        dateOfBirth: parsedDateOfBirth,
       },
     });
   }
@@ -49,7 +59,7 @@ export class StudentService {
       },
     });
   }
-  
+
   async getStudentAttendance(studentId: number) {
     return this.prisma.attendance.findMany({
       where: { studentId },
@@ -70,7 +80,7 @@ export class StudentService {
 
   async updateProfile(data: UpdateStudentInput) {
     const { id, ...rest } = data;
-  
+
     return this.prisma.student.update({
       where: { id },
       data: rest,

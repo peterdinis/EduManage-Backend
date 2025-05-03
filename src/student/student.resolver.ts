@@ -13,9 +13,7 @@ export class StudentResolver {
   constructor(private readonly studentService: StudentService) {}
 
   @Mutation(() => Student)
-  async registerStudent(
-    @Args('data') data: RegisterStudentInput,
-  ) {
+  async registerStudent(@Args('data') data: RegisterStudentInput) {
     return this.studentService.register(data);
   }
 
@@ -25,7 +23,7 @@ export class StudentResolver {
   }
 
   @Query(() => Student)
-  async studentProfile(@Args('id', { type: () => Int }) id: number){
+  async studentProfile(@Args('id', { type: () => Int }) id: number) {
     return this.studentService.profile(id);
   }
 
@@ -51,9 +49,7 @@ export class StudentResolver {
   }
 
   @Mutation(() => Student)
-  async updateStudentProfile(
-    @Args('data') data: UpdateStudentInput,
-  ){
+  async updateStudentProfile(@Args('data') data: UpdateStudentInput) {
     return this.studentService.updateProfile(data);
   }
 }
