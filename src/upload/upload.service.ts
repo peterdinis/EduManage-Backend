@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUploadInput } from './dto/create-upload.input';
 import { join } from 'path';
@@ -36,7 +36,19 @@ export class UploadService {
     });
   }
 
-  findAll() {
-    return this.prisma.uploadFile.findMany();
+  async findAll() {
+    return await this.prisma.uploadFile.findMany();
+  }
+
+  async findOneFile(fileId: number) {
+    const file = await this.prisma.uploadFile.findFirst({
+      where: {
+        id: fileId
+      }
+    });
+
+    if(!file) throw new NotFoundException("File does not exists");
+
+    return file
   }
 }
