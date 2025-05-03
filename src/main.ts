@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
-import { LoggerInterceptor } from './shared/logger.interceptor';
+import { LoggerInterceptor } from './shared/interceptor/logger.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
