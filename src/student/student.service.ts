@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterStudentInput } from './dto/register-student-input';
-import { LoginInput } from './dto/login-student-input';
 import * as bcrypt from 'bcrypt';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { parseISO } from 'date-fns';
