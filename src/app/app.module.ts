@@ -19,7 +19,7 @@ import { UploadModule } from 'src/upload/upload.module';
     PrismaModule,
     MailtrapModule,
     StudentModule,
-    UploadModule
+    UploadModule,
   ],
   providers: [AppResolver, AppService],
 })
