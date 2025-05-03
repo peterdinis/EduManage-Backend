@@ -10,22 +10,20 @@ import { UpdateStudentInput } from './dto/update-student-profile.dto';
 
 @Resolver(() => Student)
 export class StudentResolver {
-  constructor(private readonly studentService: StudentService) { }
+  constructor(private readonly studentService: StudentService) {}
 
   @Mutation(() => Student)
-  async registerStudent(
-    @Args('data') data: RegisterStudentInput,
-  ): Promise<Student> {
+  async registerStudent(@Args('data') data: RegisterStudentInput) {
     return this.studentService.register(data);
   }
 
   @Mutation(() => Student)
-  async loginStudent(@Args('data') data: LoginInput): Promise<Student> {
+  async loginStudent(@Args('data') data: LoginInput) {
     return this.studentService.login(data);
   }
 
   @Query(() => Student)
-  async studentProfile(@Args('id') id: string): Promise<Student> {
+  async studentProfile(@Args('id', { type: () => Int }) id: number) {
     return this.studentService.profile(id);
   }
 
@@ -51,9 +49,7 @@ export class StudentResolver {
   }
 
   @Mutation(() => Student)
-  async updateStudentProfile(
-    @Args('data') data: UpdateStudentInput,
-  ): Promise<Student> {
+  async updateStudentProfile(@Args('data') data: UpdateStudentInput) {
     return this.studentService.updateProfile(data);
   }
 }
