@@ -17,7 +17,9 @@ import { TeacherModule } from 'src/teacher/teacher.module';
       debug: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       subscriptions: {
-        "graphql-ws": true
+        'graphql-ws': {
+          path: '/graphql'
+        },
       }
     }),
     PrismaModule,
