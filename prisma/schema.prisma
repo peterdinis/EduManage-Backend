@@ -30,12 +30,23 @@ model Teacher {
   subjects  Subject[]
 }
 
+model Task {
+  id         Int      @id @default(autoincrement())
+  title      String
+  description String?
+  dueDate    DateTime
+  subjectId  Int
+  subject    Subject  @relation(fields: [subjectId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
 model Subject {
   id        Int     @id @default(autoincrement())
   name      String
   teacherId Int
   classes   Class[]
   teacher   Teacher @relation(fields: [teacherId], references: [id])
+  tasks     Task[]
 }
 
 model Class {
