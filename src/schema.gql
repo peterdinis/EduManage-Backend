@@ -39,12 +39,21 @@ type Grade {
   class: Class!
 }
 
+type UploadFile {
+  id: Int!
+  filename: String!
+  mimetype: String!
+  path: String!
+  createdAt: DateTime!
+}
+
 type Query {
   hello: String!
   studentProfile(id: Int!): Student!
   studentClasses(studentId: Int!): [Class!]!
   studentAttendance(studentId: Int!): [Attendance!]!
   studentGrades(studentId: Int!): [Grade!]!
+  allUploadedFiles: [UploadFile!]!
 }
 
 type Mutation {
@@ -52,6 +61,7 @@ type Mutation {
   registerStudent(data: RegisterStudentInput!): Student!
   loginStudent(data: LoginInput!): Student!
   updateStudentProfile(data: UpdateStudentInput!): Student!
+  uploadFile(input: CreateUploadInput!): UploadFile!
 }
 
 input SendEmailInput {
@@ -81,3 +91,10 @@ input UpdateStudentInput {
   dateOfBirth: String
   id: Float!
 }
+
+input CreateUploadInput {
+  file: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
