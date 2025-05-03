@@ -17,7 +17,8 @@ export class TeacherService {
       where: { id },
       include: { subjects: true },
     });
-    if (!teacher) throw new NotFoundException(`Teacher with ID ${id} not found.`);
+    if (!teacher)
+      throw new NotFoundException(`Teacher with ID ${id} not found.`);
     return teacher;
   }
 

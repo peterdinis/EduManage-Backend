@@ -9,22 +9,23 @@ import { LoginInput, LoginResponse } from './dto/login-student-input';
 
 @Injectable()
 export class StudentService {
-  constructor(private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
   ) {}
 
   private generateToken(student: { id: number; email: string }) {
     return this.jwtService.sign({ sub: student.id, email: student.email });
   }
-  
+
   async register(data: RegisterStudentInput) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
-  
+
     const parsedDateOfBirth =
       typeof data.dateOfBirth === 'string'
         ? parseISO(data.dateOfBirth)
         : data.dateOfBirth;
-  
+
     const student = await this.prisma.student.create({
       data: {
         email: data.email,
@@ -34,24 +35,24 @@ export class StudentService {
         dateOfBirth: parsedDateOfBirth,
       },
     });
-  
+
     return {
       accessToken: this.generateToken(student),
     };
   }
-  
+
   async login(data: LoginInput) {
     const student = await this.prisma.student.findUnique({
       where: { email: data.email },
     });
-  
+
     if (!student || !(await bcrypt.compare(data.password, student.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-  
+
     return {
       accessToken: this.generateToken(student),
-    }
+    };
   }
 
   async profile(studentId: number) {
