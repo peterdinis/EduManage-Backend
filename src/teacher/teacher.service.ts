@@ -1,11 +1,21 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '../../generated/prisma';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { CreateTeacherInput } from './dto/create-teacher.dto';
+import { LoginInput } from './dto/login-teacher.input';
 
 @Injectable()
 export class TeacherService {
-  constructor(private readonly prisma: PrismaService,  private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async findAll() {
     return this.prisma.teacher.findMany({
@@ -38,48 +48,42 @@ export class TeacherService {
     return this.prisma.teacher.delete({ where: { id } });
   }
 
-  private generateToken(student: { id: number; email: string }) {
-      return this.jwtService.sign({ sub: student.id, email: student.email });
+  private generateTokenForTeacher(teacher: { id: number; email: string }) {
+    return this.jwtService.sign({ sub: teacher.id, email: teacher.email });
+  }
+
+  async register(data: CreateTeacherInput) {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const teacher = await this.prisma.teacher.create({
+      data: {
+        email: data.email,
+        password: hashedPassword,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      },
+    });
+
+    return {
+      accessToken: this.generateTokenForTeacher(teacher),
+    };
+  }
+
+  async login(data: LoginInput) {
+    const teacher = await this.prisma.teacher.findUnique({
+      where: { email: data.email },
+    });
+
+    if (!teacher || !(await bcrypt.compare(data.password, teacher.password))) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-  
-    async register(data: RegisterStudentInput) {
-      const hashedPassword = await bcrypt.hash(data.password, 10);
-  
-      const parsedDateOfBirth =
-        typeof data.dateOfBirth === 'string'
-          ? parseISO(data.dateOfBirth)
-          : data.dateOfBirth;
-  
-      const student = await this.prisma.student.create({
-        data: {
-          email: data.email,
-          password: hashedPassword,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: parsedDateOfBirth,
-        },
-      });
-  
-      return {
-        accessToken: this.generateToken(student),
-      };
-    }
-  
-    async login(data: LoginInput) {
-      const student = await this.prisma.student.findUnique({
-        where: { email: data.email },
-      });
-  
-      if (!student || !(await bcrypt.compare(data.password, student.password))) {
-        throw new UnauthorizedException('Invalid credentials');
-      }
-  
-      return {
-        accessToken: this.generateToken(student),
-      };
-    }
-  
-    async profile(studentId: number) {
-      return this.prisma.student.findUnique({ where: { id: studentId } });
-    }
+
+    return {
+      accessToken: this.generateTokenForTeacher(teacher),
+    };
+  }
+
+  async profile(teacherId: number) {
+    return this.prisma.teacher.findUnique({ where: { id: teacherId } });
+  }
 }
