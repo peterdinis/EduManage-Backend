@@ -1,10 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  Int,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TeacherService } from './teacher.service';
 import { CreateTeacherInput } from './dto/create-teacher.dto';
 import { UpdateTeacherInput } from './dto/update-teacher.dto';
@@ -55,7 +49,9 @@ export class TeacherResolver {
   }
 
   @Query(() => Teacher)
-  async teacherProfile(@Args('teacherId', { type: () => Int }) teacherId: number) {
+  async teacherProfile(
+    @Args('teacherId', { type: () => Int }) teacherId: number,
+  ) {
     return this.teacherService.profile(teacherId);
   }
 }

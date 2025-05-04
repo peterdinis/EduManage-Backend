@@ -1,4 +1,4 @@
-import { Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateSubjectInput } from './dto/create-subject-dto';
 import { UpdateSubjectInput } from './dto/update-subject.dto';

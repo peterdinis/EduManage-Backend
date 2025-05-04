@@ -30,7 +30,7 @@ import { SubjectModule } from 'src/subject/subject.module';
     StudentModule,
     UploadModule,
     TeacherModule,
-    SubjectModule
+    SubjectModule,
   ],
   providers: [AppResolver, AppService],
 })
