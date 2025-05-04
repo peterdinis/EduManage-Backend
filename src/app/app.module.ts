@@ -10,6 +10,7 @@ import { MailtrapModule } from 'src/mailtrap/mailtrap.module';
 import { StudentModule } from 'src/student/student.module';
 import { UploadModule } from 'src/upload/upload.module';
 import { TeacherModule } from 'src/teacher/teacher.module';
+import { SubjectModule } from 'src/subject/subject.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TeacherModule } from 'src/teacher/teacher.module';
     StudentModule,
     UploadModule,
     TeacherModule,
+    SubjectModule
   ],
   providers: [AppResolver, AppService],
 })
