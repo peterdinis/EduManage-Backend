@@ -11,6 +11,7 @@ import { StudentModule } from 'src/student/student.module';
 import { UploadModule } from 'src/upload/upload.module';
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { SubjectModule } from 'src/subject/subject.module';
+import { ClassModule } from 'src/class/class.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SubjectModule } from 'src/subject/subject.module';
     UploadModule,
     TeacherModule,
     SubjectModule,
+    ClassModule
   ],
   providers: [AppResolver, AppService],
 })
