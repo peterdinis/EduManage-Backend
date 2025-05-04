@@ -1,8 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+} from '@nestjs/graphql';
 import { TeacherService } from './teacher.service';
 import { CreateTeacherInput } from './dto/create-teacher.dto';
 import { UpdateTeacherInput } from './dto/update-teacher.dto';
 import { Teacher } from './entities/teacher.model';
+import { LoginInput } from './dto/login-teacher.input';
+import { AuthResponse } from './dto/auth-response.dto';
 
 @Resolver(() => Teacher)
 export class TeacherResolver {
@@ -34,5 +42,20 @@ export class TeacherResolver {
   @Mutation(() => Teacher)
   async deleteTeacher(@Args('id', { type: () => Int }) id: number) {
     return this.teacherService.remove(id);
+  }
+
+  @Mutation(() => AuthResponse)
+  async registerTeacher(@Args('data') data: CreateTeacherInput) {
+    return this.teacherService.register(data);
+  }
+
+  @Mutation(() => AuthResponse)
+  async loginTeacher(@Args('data') data: LoginInput) {
+    return this.teacherService.login(data);
+  }
+
+  @Query(() => Teacher)
+  async teacherProfile(@Args('teacherId', { type: () => Int }) teacherId: number) {
+    return this.teacherService.profile(teacherId);
   }
 }

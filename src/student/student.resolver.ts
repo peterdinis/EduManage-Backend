@@ -8,8 +8,8 @@ import { Class } from './entities/class.entity';
 import { Grade } from './entities/grade.entity';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser } from './auth/current-user.decorator';
-import { GqlAuthGuard } from './auth/qql-auth.guard';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { GqlAuthGuard } from './guards/qql-auth.guard';
 
 @Resolver(() => Student)
 export class StudentResolver {

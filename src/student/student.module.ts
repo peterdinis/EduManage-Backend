@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { StudentService } from './student.service';
 import { StudentResolver } from './student.resolver';
 import { PrismaService } from '../prisma/prisma.service';
-import { JwtStrategy } from './auth/jwt.strategy';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 @Module({
   imports: [
