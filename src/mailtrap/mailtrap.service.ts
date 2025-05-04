@@ -17,7 +17,11 @@ export class MailtrapService {
     });
   }
 
-  async sendMail(to: string, subject: string, message: string): Promise<boolean> {
+  async sendMail(
+    to: string,
+    subject: string,
+    message: string,
+  ): Promise<boolean> {
     const info = await this.transporter.sendMail({
       from: '"My App" <noreply@myapp.com>',
       to,
