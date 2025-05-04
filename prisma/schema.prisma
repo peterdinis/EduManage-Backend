@@ -23,14 +23,15 @@ model Student {
 
 model Teacher {
   id        Int       @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String    @unique
-  password    String          @default("ABCD")
+  firstName  String
+  lastName   String
+  email      String    @unique
+  password   String    @default("ABCD")
+  phone      String?   
   subjects  Subject[]
 }
 
-model Task {
+model Assigment {
   id         Int      @id @default(autoincrement())
   title      String
   description String?
@@ -46,7 +47,7 @@ model Subject {
   teacherId Int
   classes   Class[]
   teacher   Teacher @relation(fields: [teacherId], references: [id])
-  tasks     Task[]
+  assigments     Assigment[]
 }
 
 model Class {
