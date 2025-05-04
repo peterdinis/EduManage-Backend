@@ -30,7 +30,7 @@ model Teacher {
   subjects  Subject[]
 }
 
-model Task {
+model Assigment {
   id         Int      @id @default(autoincrement())
   title      String
   description String?
@@ -46,7 +46,7 @@ model Subject {
   teacherId Int
   classes   Class[]
   teacher   Teacher @relation(fields: [teacherId], references: [id])
-  tasks     Task[]
+  assigments     Assigment[]
 }
 
 model Class {
