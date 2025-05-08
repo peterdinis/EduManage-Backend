@@ -1,13 +1,13 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
 
 @ObjectType()
-export class LoginResponse {
+export class LoginTeacherResponse {
   @Field()
   accessToken: string;
 }
 
 @InputType()
-export class LoginInput {
+export class LoginTeacherInput {
   @Field()
   email: string;
 

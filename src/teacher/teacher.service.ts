@@ -8,7 +8,7 @@ import { Prisma } from '../../generated/prisma';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CreateTeacherInput } from './dto/create-teacher.dto';
-import { LoginInput } from './dto/login-teacher.input';
+import { LoginTeacherInput } from './dto/login-teacher.input';
 
 @Injectable()
 export class TeacherService {
@@ -69,7 +69,7 @@ export class TeacherService {
     };
   }
 
-  async login(data: LoginInput) {
+  async login(data: LoginTeacherInput) {
     const teacher = await this.prisma.teacher.findUnique({
       where: { email: data.email },
     });
