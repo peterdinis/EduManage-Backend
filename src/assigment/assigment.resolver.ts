@@ -3,6 +3,7 @@ import { AssigmentService } from './assigment.service';
 import { AssigmentEntity } from './entity/assigment.entity';
 import { CreateAssigmentInput } from './dto/create-assigment.dto';
 import { UpdateAssigmentInput } from './dto/update-assigment.dto';
+import { AssigmentSearchInput } from './dto/search-input.dto';
 
 @Resolver(() => AssigmentEntity)
 export class AssigmentResolver {
@@ -14,8 +15,8 @@ export class AssigmentResolver {
     }
 
     @Query(() => [AssigmentEntity])
-    findAllAssigments() {
-        return this.assigmentService.findAll();
+    findAllAssigments(@Args('searchInput', { nullable: true }) searchInput?: AssigmentSearchInput) {
+        return this.assigmentService.findAll(searchInput);
     }
 
     @Query(() => AssigmentEntity)
