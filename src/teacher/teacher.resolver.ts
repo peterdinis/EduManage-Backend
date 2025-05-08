@@ -3,7 +3,7 @@ import { TeacherService } from './teacher.service';
 import { CreateTeacherInput } from './dto/create-teacher.dto';
 import { UpdateTeacherInput } from './dto/update-teacher.dto';
 import { Teacher } from './entities/teacher.model';
-import { LoginInput } from './dto/login-teacher.input';
+import { LoginTeacherInput } from './dto/login-teacher.input';
 import { AuthResponse } from './dto/auth-response.dto';
 
 @Resolver(() => Teacher)
@@ -44,7 +44,7 @@ export class TeacherResolver {
   }
 
   @Mutation(() => AuthResponse)
-  async loginTeacher(@Args('data') data: LoginInput) {
+  async loginTeacher(@Args('data') data: LoginTeacherInput) {
     return this.teacherService.login(data);
   }
 
