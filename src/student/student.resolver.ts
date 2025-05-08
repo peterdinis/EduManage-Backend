@@ -8,7 +8,7 @@ import { Class } from './entities/class.entity';
 import { Grade } from './entities/grade.entity';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser } from './decorators/current-user.decorator';
+import { CurrentStudent } from './decorators/current-user.decorator';
 import { GqlAuthGuard } from './guards/qql-auth.guard';
 
 @Resolver(() => Student)
@@ -27,25 +27,25 @@ export class StudentResolver {
 
   @Query(() => Student)
   @UseGuards(GqlAuthGuard)
-  async studentProfile(@CurrentUser('sub') id: number) {
+  async studentProfile(@CurrentStudent('sub') id: number) {
     return this.studentService.profile(id);
   }
 
   @Query(() => [Class])
   @UseGuards(GqlAuthGuard)
-  async studentClasses(@CurrentUser('sub') studentId: number) {
+  async studentClasses(@CurrentStudent('sub') studentId: number) {
     return this.studentService.getStudentClasses(studentId);
   }
 
   @Query(() => [Attendance])
   @UseGuards(GqlAuthGuard)
-  async studentAttendance(@CurrentUser('sub') studentId: number) {
+  async studentAttendance(@CurrentStudent('sub') studentId: number) {
     return this.studentService.getStudentAttendance(studentId);
   }
 
   @Query(() => [Grade])
   @UseGuards(GqlAuthGuard)
-  async studentGrades(@CurrentUser('sub') studentId: number) {
+  async studentGrades(@CurrentStudent('sub') studentId: number) {
     return this.studentService.getStudentGrades(studentId);
   }
 
