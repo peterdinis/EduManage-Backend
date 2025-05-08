@@ -5,7 +5,7 @@ import { UpdateAssigmentInput } from './dto/update-assigment.dto';
 
 @Injectable()
 export class AssigmentService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   create(data: CreateAssigmentInput) {
     return this.prisma.assigment.create({ data });
@@ -17,11 +17,11 @@ export class AssigmentService {
     return this.prisma.assigment.findMany({
       where: query
         ? {
-          OR: [
-            { title: { contains: query } },
-            { description: { contains: query } },
-          ],
-        }
+            OR: [
+              { title: { contains: query } },
+              { description: { contains: query } },
+            ],
+          }
         : undefined,
       skip,
       take,
@@ -30,7 +30,10 @@ export class AssigmentService {
   }
 
   findOne(id: number) {
-    return this.prisma.assigment.findUnique({ where: { id }, include: { subject: true } });
+    return this.prisma.assigment.findUnique({
+      where: { id },
+      include: { subject: true },
+    });
   }
 
   async update(id: number, data: UpdateAssigmentInput) {

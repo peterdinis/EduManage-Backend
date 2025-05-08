@@ -3,14 +3,17 @@ import { ClassService } from './class.service';
 import { CreateClassInput } from './dto/create-class-input.dto';
 import { UpdateClassInput } from './dto/update-class-input.dto';
 import { ClassEntity } from './entities/class.entity';
+import { ClassSearchInput } from './dto/search-input.dto';
 
 @Resolver(() => ClassEntity)
 export class ClassResolver {
   constructor(private readonly classService: ClassService) {}
 
   @Query(() => [ClassEntity])
-  getAllClasses() {
-    return this.classService.findAll();
+  getAllClasses(
+    @Args('searchInput', { nullable: true }) searchInput?: ClassSearchInput,
+  ) {
+    return this.classService.findAll(searchInput);
   }
 
   @Query(() => ClassEntity)

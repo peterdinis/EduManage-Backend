@@ -34,7 +34,7 @@ import { AssigmentModule } from 'src/assigment/assigment.module';
     TeacherModule,
     SubjectModule,
     ClassModule,
-    AssigmentModule
+    AssigmentModule,
   ],
   providers: [AppResolver, AppService],
 })
