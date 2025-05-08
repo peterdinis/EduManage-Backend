@@ -13,6 +13,7 @@ import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { UseGuards } from '@nestjs/common';
 import { CurrentStudent } from './decorators/current-user.decorator';
 import { GqlAuthGuard } from './guards/qql-auth.guard';
+import { PaginationSearchInput } from './dto/pagination-search-input';
 
 @Resolver(() => Student)
 export class StudentResolver {
@@ -36,20 +37,29 @@ export class StudentResolver {
 
   @Query(() => [Class])
   @UseGuards(GqlAuthGuard)
-  async studentClasses(@CurrentStudent('sub') studentId: number) {
-    return this.studentService.getStudentClasses(studentId);
+  async studentClasses(
+    @CurrentStudent('sub') studentId: number,
+    @Args('input', { nullable: true }) input?: PaginationSearchInput,
+  ) {
+    return this.studentService.getStudentClasses(studentId, input);
   }
 
   @Query(() => [Attendance])
   @UseGuards(GqlAuthGuard)
-  async studentAttendance(@CurrentStudent('sub') studentId: number) {
-    return this.studentService.getStudentAttendance(studentId);
+  async studentAttendance(
+    @CurrentStudent('sub') studentId: number,
+    @Args('input', { nullable: true }) input?: PaginationSearchInput,
+  ) {
+    return this.studentService.getStudentAttendance(studentId, input);
   }
 
   @Query(() => [Grade])
   @UseGuards(GqlAuthGuard)
-  async studentGrades(@CurrentStudent('sub') studentId: number) {
-    return this.studentService.getStudentGrades(studentId);
+  async studentGrades(
+    @CurrentStudent('sub') studentId: number,
+    @Args('input', { nullable: true }) input?: PaginationSearchInput,
+  ) {
+    return this.studentService.getStudentGrades(studentId, input);
   }
 
   @Mutation(() => Student)

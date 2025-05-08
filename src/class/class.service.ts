@@ -7,8 +7,21 @@ import { CreateClassInput } from './dto/create-class-input.dto';
 export class ClassService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll() {
+  async findAll(searchInput?: {
+    query?: string;
+    skip?: number;
+    take?: number;
+  }) {
+    const { query, skip, take } = searchInput || {};
+
     return this.prisma.class.findMany({
+      where: query
+        ? {
+            name: { contains: query },
+          }
+        : undefined,
+      skip,
+      take,
       include: {
         subject: true,
         enrollments: true,
