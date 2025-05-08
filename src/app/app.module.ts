@@ -12,6 +12,7 @@ import { UploadModule } from 'src/upload/upload.module';
 import { TeacherModule } from 'src/teacher/teacher.module';
 import { SubjectModule } from 'src/subject/subject.module';
 import { ClassModule } from 'src/class/class.module';
+import { AssigmentModule } from 'src/assigment/assigment.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ClassModule } from 'src/class/class.module';
     TeacherModule,
     SubjectModule,
     ClassModule,
+    AssigmentModule
   ],
   providers: [AppResolver, AppService],
 })
