@@ -77,6 +77,16 @@ type ClassEntity {
   createdAt: DateTime!
 }
 
+type AssigmentEntity {
+  id: Int!
+  title: String!
+  description: String
+  dueDate: DateTime!
+  subjectId: Int!
+  subject: SubjectEntity!
+  createdAt: DateTime!
+}
+
 type Query {
   hello: String!
   studentProfile: Student!
@@ -91,6 +101,8 @@ type Query {
   subject(id: Int!): SubjectEntity!
   getAllClasses: [ClassEntity!]!
   getClass(id: Int!): ClassEntity!
+  findAllAssigments: [AssigmentEntity!]!
+  findAssigment(id: Int!): AssigmentEntity!
 }
 
 type Mutation {
@@ -111,6 +123,9 @@ type Mutation {
   createClass(data: CreateClassInput!): ClassEntity!
   updateClass(id: Int!, data: UpdateClassInput!): ClassEntity!
   deleteClass(id: Int!): ClassEntity!
+  createAssigment(data: CreateAssigmentInput!): AssigmentEntity!
+  updateAssigment(data: UpdateAssigmentInput!): AssigmentEntity!
+  removeAssigment(id: Int!): AssigmentEntity!
 }
 
 input SendEmailInput {
@@ -186,4 +201,19 @@ input CreateClassInput {
 input UpdateClassInput {
   name: String
   subjectId: Int
+}
+
+input CreateAssigmentInput {
+  title: String!
+  description: String
+  dueDate: DateTime!
+  subjectId: Int!
+}
+
+input UpdateAssigmentInput {
+  title: String
+  description: String
+  dueDate: DateTime
+  subjectId: Int
+  id: Int!
 }
