@@ -6,6 +6,7 @@ import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { parseISO } from 'date-fns';
 import { JwtService } from '@nestjs/jwt';
 import { LoginStudentInput } from './dto/login-student-input';
+import { PaginationSearchInput } from './dto/pagination-search-input';
 
 @Injectable()
 export class StudentService {
@@ -59,33 +60,60 @@ export class StudentService {
     return this.prisma.student.findUnique({ where: { id: studentId } });
   }
 
-  async getStudentClasses(studentId: number) {
+  async getStudentClasses(studentId: number, input?: PaginationSearchInput) {
+    const { skip, take, query } = input || {};
+
     return this.prisma.class.findMany({
       where: {
         enrollments: {
-          some: {
-            studentId,
-          },
+          some: { studentId },
         },
+        ...(query && {
+          name: { contains: query },
+        }),
       },
+      skip,
+      take,
       include: {
         subject: true,
       },
     });
   }
 
-  async getStudentAttendance(studentId: number) {
+  async getStudentAttendance(studentId: number, input?: PaginationSearchInput) {
+    const { skip, take, query } = input || {};
+
     return this.prisma.attendance.findMany({
-      where: { studentId },
+      where: {
+        studentId,
+        ...(query && {
+          class: {
+            name: { contains: query },
+          },
+        }),
+      },
+      skip,
+      take,
       include: {
         class: true,
       },
     });
   }
 
-  async getStudentGrades(studentId: number) {
+  async getStudentGrades(studentId: number, input?: PaginationSearchInput) {
+    const { skip, take, query } = input || {};
+
     return this.prisma.grade.findMany({
-      where: { studentId },
+      where: {
+        studentId,
+        ...(query && {
+          class: {
+            name: { contains: query },
+          },
+        }),
+      },
+      skip,
+      take,
       include: {
         class: true,
       },
