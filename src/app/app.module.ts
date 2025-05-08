@@ -32,7 +32,7 @@ import { ClassModule } from 'src/class/class.module';
     UploadModule,
     TeacherModule,
     SubjectModule,
-    ClassModule
+    ClassModule,
   ],
   providers: [AppResolver, AppService],
 })

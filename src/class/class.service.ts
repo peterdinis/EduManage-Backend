@@ -9,14 +9,24 @@ export class ClassService {
 
   async findAll() {
     return this.prisma.class.findMany({
-      include: { subject: true, enrollments: true, grades: true, attendances: true },
+      include: {
+        subject: true,
+        enrollments: true,
+        grades: true,
+        attendances: true,
+      },
     });
   }
 
   async findOne(id: number) {
     const classEntity = await this.prisma.class.findUnique({
       where: { id },
-      include: { subject: true, enrollments: true, grades: true, attendances: true },
+      include: {
+        subject: true,
+        enrollments: true,
+        grades: true,
+        attendances: true,
+      },
     });
     if (!classEntity) throw new NotFoundException(`Class ${id} not found`);
     return classEntity;

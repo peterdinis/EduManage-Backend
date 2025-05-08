@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { UpdateStudentInput } from './dto/update-student-profile.dto';
 import { parseISO } from 'date-fns';
 import { JwtService } from '@nestjs/jwt';
-import { LoginInput } from './dto/login-student-input';
+import { LoginStudentInput } from './dto/login-student-input';
 
 @Injectable()
 export class StudentService {
@@ -41,7 +41,7 @@ export class StudentService {
     };
   }
 
-  async login(data: LoginInput) {
+  async login(data: LoginStudentInput) {
     const student = await this.prisma.student.findUnique({
       where: { email: data.email },
     });

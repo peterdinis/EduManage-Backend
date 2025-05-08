@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type LoginStudentResponse {
+  accessToken: String!
+}
+
 type Student {
   id: ID!
   name: String!
@@ -47,21 +51,66 @@ type UploadFile {
   createdAt: DateTime!
 }
 
+type Teacher {
+  id: Int!
+  firstName: String!
+  lastName: String!
+  email: String!
+  subjects: [Subject!]
+}
+
+type AuthResponse {
+  accessToken: String!
+}
+
+type SubjectEntity {
+  id: Int!
+  name: String!
+  teacherId: Int!
+  teacher: Teacher!
+}
+
+type ClassEntity {
+  id: Int!
+  name: String!
+  subjectId: Int!
+  createdAt: DateTime!
+}
+
 type Query {
   hello: String!
-  studentProfile(id: Int!): Student!
-  studentClasses(studentId: Int!): [Class!]!
-  studentAttendance(studentId: Int!): [Attendance!]!
-  studentGrades(studentId: Int!): [Grade!]!
+  studentProfile: Student!
+  studentClasses: [Class!]!
+  studentAttendance: [Attendance!]!
+  studentGrades: [Grade!]!
   allUploadedFiles: [UploadFile!]!
+  teachers: [Teacher!]!
+  teacher(id: Int!): Teacher!
+  teacherProfile(teacherId: Int!): Teacher!
+  subjects: [SubjectEntity!]!
+  subject(id: Int!): SubjectEntity!
+  getAllClasses: [ClassEntity!]!
+  getClass(id: Int!): ClassEntity!
 }
 
 type Mutation {
   sendEmail(input: SendEmailInput!): Boolean!
-  registerStudent(data: RegisterStudentInput!): Student!
-  loginStudent(data: LoginInput!): Student!
+  registerStudent(data: RegisterStudentInput!): LoginStudentResponse!
+  loginStudent(data: LoginStudentInput!): LoginStudentResponse!
   updateStudentProfile(data: UpdateStudentInput!): Student!
   uploadFile(input: CreateUploadInput!): UploadFile!
+  deleteFile(fileId: Int!): String!
+  createTeacher(data: CreateTeacherInput!): Teacher!
+  updateTeacher(id: Int!, data: UpdateTeacherInput!): Teacher!
+  deleteTeacher(id: Int!): Teacher!
+  registerTeacher(data: CreateTeacherInput!): AuthResponse!
+  loginTeacher(data: LoginTeacherInput!): AuthResponse!
+  createSubject(input: CreateSubjectInput!): SubjectEntity!
+  updateSubject(input: UpdateSubjectInput!): SubjectEntity!
+  removeSubject(id: Int!): SubjectEntity!
+  createClass(data: CreateClassInput!): ClassEntity!
+  updateClass(id: Int!, data: UpdateClassInput!): ClassEntity!
+  deleteClass(id: Int!): ClassEntity!
 }
 
 input SendEmailInput {
@@ -78,7 +127,7 @@ input RegisterStudentInput {
   dateOfBirth: String!
 }
 
-input LoginInput {
+input LoginStudentInput {
   email: String!
   password: String!
 }
@@ -98,3 +147,43 @@ input CreateUploadInput {
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input CreateTeacherInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String
+}
+
+input UpdateTeacherInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+}
+
+input LoginTeacherInput {
+  email: String!
+  password: String!
+}
+
+input CreateSubjectInput {
+  name: String!
+  teacherId: Int!
+}
+
+input UpdateSubjectInput {
+  name: String
+  teacherId: Int
+  id: Int!
+}
+
+input CreateClassInput {
+  name: String!
+  subjectId: Int!
+}
+
+input UpdateClassInput {
+  name: String
+  subjectId: Int
+}

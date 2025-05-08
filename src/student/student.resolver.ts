@@ -1,6 +1,9 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { StudentService } from './student.service';
-import { LoginInput, LoginResponse } from './dto/login-student-input';
+import {
+  LoginStudentInput,
+  LoginStudentResponse,
+} from './dto/login-student-input';
 import { RegisterStudentInput } from './dto/register-student-input';
 import { Student } from './entities/student.entity';
 import { Attendance } from './entities/attendence.entity';
@@ -15,13 +18,13 @@ import { GqlAuthGuard } from './guards/qql-auth.guard';
 export class StudentResolver {
   constructor(private readonly studentService: StudentService) {}
 
-  @Mutation(() => LoginResponse)
+  @Mutation(() => LoginStudentResponse)
   async registerStudent(@Args('data') data: RegisterStudentInput) {
     return this.studentService.register(data);
   }
 
-  @Mutation(() => LoginInput)
-  async loginStudent(@Args('data') data: LoginInput) {
+  @Mutation(() => LoginStudentResponse)
+  async loginStudent(@Args('data') data: LoginStudentInput) {
     return this.studentService.login(data);
   }
 
