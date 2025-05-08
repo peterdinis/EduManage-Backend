@@ -20,7 +20,7 @@ export class StudentResolver {
     return this.studentService.register(data);
   }
 
-  @Mutation(() => LoginInput)
+  @Mutation(() => LoginResponse)
   async loginStudent(@Args('data') data: LoginInput) {
     return this.studentService.login(data);
   }

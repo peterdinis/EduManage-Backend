@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Teacher } from 'src/teacher/entities/teacher.model';
 
 @ObjectType()
-export class Subject {
+export class SubjectEntity {
   @Field(() => Int)
   id: number;
 
