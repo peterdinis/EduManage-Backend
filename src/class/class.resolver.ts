@@ -4,7 +4,6 @@ import { CreateClassInput } from './dto/create-class-input.dto';
 import { UpdateClassInput } from './dto/update-class-input.dto';
 import { ClassEntity } from './entities/class.entity';
 
-
 @Resolver(() => ClassEntity)
 export class ClassResolver {
   constructor(private readonly classService: ClassService) {}

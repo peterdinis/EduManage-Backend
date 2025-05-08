@@ -1,6 +1,9 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { StudentService } from './student.service';
-import { LoginStudentInput, LoginStudentResponse} from './dto/login-student-input';
+import {
+  LoginStudentInput,
+  LoginStudentResponse,
+} from './dto/login-student-input';
 import { RegisterStudentInput } from './dto/register-student-input';
 import { Student } from './entities/student.entity';
 import { Attendance } from './entities/attendence.entity';
