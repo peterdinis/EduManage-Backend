@@ -13,6 +13,7 @@ import { TeacherModule } from 'src/teacher/teacher.module';
 import { SubjectModule } from 'src/subject/subject.module';
 import { ClassModule } from 'src/class/class.module';
 import { AssigmentModule } from 'src/assigment/assigment.module';
+import { AttendanceModule } from 'src/attendance/attendance.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AssigmentModule } from 'src/assigment/assigment.module';
     TeacherModule,
     SubjectModule,
     ClassModule,
+    AttendanceModule,
     AssigmentModule,
   ],
   providers: [AppResolver, AppService],
