@@ -38,7 +38,7 @@ import { GradeModule } from 'src/grade/grade.module';
     ClassModule,
     AttendanceModule,
     AssigmentModule,
-    GradeModule
+    GradeModule,
   ],
   providers: [AppResolver, AppService],
 })
