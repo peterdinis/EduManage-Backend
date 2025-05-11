@@ -14,6 +14,7 @@ import { SubjectModule } from 'src/subject/subject.module';
 import { ClassModule } from 'src/class/class.module';
 import { AssigmentModule } from 'src/assigment/assigment.module';
 import { AttendanceModule } from 'src/attendance/attendance.module';
+import { GradeModule } from 'src/grade/grade.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AttendanceModule } from 'src/attendance/attendance.module';
     ClassModule,
     AttendanceModule,
     AssigmentModule,
+    GradeModule,
   ],
   providers: [AppResolver, AppService],
 })
