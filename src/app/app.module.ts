@@ -44,7 +44,7 @@ import { ParentStudentModule } from 'src/parent-student/parent-student.module';
     GradeModule,
     EnrollmentModule,
     ParentModule,
-    ParentStudentModule
+    ParentStudentModule,
   ],
   providers: [AppResolver, AppService],
 })
