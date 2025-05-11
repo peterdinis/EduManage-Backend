@@ -17,6 +17,7 @@ import { AttendanceModule } from 'src/attendance/attendance.module';
 import { GradeModule } from 'src/grade/grade.module';
 import { EnrollmentModule } from 'src/enrollment/enrollment.module';
 import { ParentModule } from 'src/parent/parent.module';
+import { ParentStudentModule } from 'src/parent-student/parent-student.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { ParentModule } from 'src/parent/parent.module';
     AssigmentModule,
     GradeModule,
     EnrollmentModule,
-    ParentModule
+    ParentModule,
+    ParentStudentModule
   ],
   providers: [AppResolver, AppService],
 })
