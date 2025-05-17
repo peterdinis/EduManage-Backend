@@ -90,19 +90,37 @@ type AssigmentEntity {
 type Query {
   hello: String!
   studentProfile: Student!
-  studentClasses: [Class!]!
-  studentAttendance: [Attendance!]!
-  studentGrades: [Grade!]!
+  studentClasses(input: PaginationSearchInput): [Class!]!
+  studentAttendance(input: PaginationSearchInput): [Attendance!]!
+  studentGrades(input: PaginationSearchInput): [Grade!]!
   allUploadedFiles: [UploadFile!]!
   teachers: [Teacher!]!
   teacher(id: Int!): Teacher!
   teacherProfile(teacherId: Int!): Teacher!
   subjects: [SubjectEntity!]!
   subject(id: Int!): SubjectEntity!
-  getAllClasses: [ClassEntity!]!
+  getAllClasses(searchInput: ClassSearchInput): [ClassEntity!]!
   getClass(id: Int!): ClassEntity!
-  findAllAssigments: [AssigmentEntity!]!
+  findAllAssigments(searchInput: AssigmentSearchInput): [AssigmentEntity!]!
   findAssigment(id: Int!): AssigmentEntity!
+}
+
+input PaginationSearchInput {
+  skip: Int
+  take: Int
+  query: String
+}
+
+input ClassSearchInput {
+  query: String
+  skip: Int
+  take: Int
+}
+
+input AssigmentSearchInput {
+  query: String
+  skip: Int
+  take: Int
 }
 
 type Mutation {

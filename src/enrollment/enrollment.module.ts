@@ -7,4 +7,5 @@ import { EnrollmentService } from './enrollement.service';
   imports: [PrismaModule],
   providers: [EnrollmentResolver, EnrollmentService],
 })
+
 export class EnrollmentModule {}
