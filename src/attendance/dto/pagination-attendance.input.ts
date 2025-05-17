@@ -1,7 +1,5 @@
-
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Attendance } from '../entity/attendance.model';
-
 
 @ObjectType()
 export class PaginatedAttendance {

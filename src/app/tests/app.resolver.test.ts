@@ -1,4 +1,4 @@
-import { AppResolver } from "../app.resolver";
+import { AppResolver } from '../app.resolver';
 
 describe('AppResolver', () => {
   let resolver: AppResolver;
