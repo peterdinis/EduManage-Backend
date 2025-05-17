@@ -1,4 +1,35 @@
-import { Resolver } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { AttendanceService } from './attendance.service';
+import { CreateAttendanceInput } from './dto/create-attendance.input';
+import { UpdateAttendanceInput } from './dto/update-attendance.input';
+import { Attendance } from './entity/attendance.model';
 
-@Resolver()
-export class AttendanceResolver {}
+@Resolver(() => Attendance)
+export class AttendanceResolver {
+  constructor(private readonly service: AttendanceService) {}
+
+  @Mutation(() => Attendance)
+  createAttendance(@Args('input') input: CreateAttendanceInput) {
+    return this.service.create(input);
+  }
+
+  @Query(() => [Attendance])
+  attendances() {
+    return this.service.findAll();
+  }
+
+  @Query(() => Attendance)
+  attendance(@Args('id', { type: () => Int }) id: number) {
+    return this.service.findOne(id);
+  }
+
+  @Mutation(() => Attendance)
+  updateAttendance(@Args('input') input: UpdateAttendanceInput) {
+    return this.service.update(input.id, input);
+  }
+
+  @Mutation(() => Attendance)
+  removeAttendance(@Args('id', { type: () => Int }) id: number) {
+    return this.service.remove(id);
+  }
+}
