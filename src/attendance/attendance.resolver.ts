@@ -2,34 +2,34 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { AttendanceService } from './attendance.service';
 import { CreateAttendanceInput } from './dto/create-attendance.input';
 import { UpdateAttendanceInput } from './dto/update-attendance.input';
-import { Attendance } from './entity/attendance.model';
+import { AttendanceApp } from './entity/attendance.model';
 import { PaginatedAttendance } from './dto/pagination-attendance.input';
 
-@Resolver(() => Attendance)
+@Resolver(() => AttendanceApp)
 export class AttendanceResolver {
   constructor(private readonly service: AttendanceService) {}
 
-  @Mutation(() => Attendance)
+  @Mutation(() => AttendanceApp)
   createAttendance(@Args('input') input: CreateAttendanceInput) {
     return this.service.create(input);
   }
 
-  @Query(() => [Attendance])
+  @Query(() => [AttendanceApp])
   attendances() {
     return this.service.findAll();
   }
 
-  @Query(() => Attendance)
+  @Query(() => AttendanceApp)
   attendance(@Args('id', { type: () => Int }) id: number) {
     return this.service.findOne(id);
   }
 
-  @Mutation(() => Attendance)
+  @Mutation(() => AttendanceApp)
   updateAttendance(@Args('input') input: UpdateAttendanceInput) {
     return this.service.update(input.id, input);
   }
 
-  @Mutation(() => Attendance)
+  @Mutation(() => AttendanceApp)
   removeAttendance(@Args('id', { type: () => Int }) id: number) {
     return this.service.remove(id);
   }

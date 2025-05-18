@@ -3,7 +3,7 @@ import { Class } from 'src/student/entities/class.entity';
 import { Student } from 'src/student/entities/student.entity';
 
 @ObjectType()
-export class Attendance {
+export class AttendanceApp {
   @Field(() => Int)
   id: number;
 

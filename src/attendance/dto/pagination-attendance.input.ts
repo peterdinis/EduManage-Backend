@@ -1,10 +1,10 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Attendance } from '../entity/attendance.model';
+import { AttendanceApp } from '../entity/attendance.model';
 
 @ObjectType()
 export class PaginatedAttendance {
-  @Field(() => [Attendance])
-  data: Attendance[];
+  @Field(() => [AttendanceApp])
+  data: AttendanceApp[];
 
   @Field(() => Int)
   total: number;

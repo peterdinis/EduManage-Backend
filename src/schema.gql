@@ -87,6 +87,33 @@ type AssigmentEntity {
   createdAt: DateTime!
 }
 
+type AttendanceApp {
+  id: Int!
+  date: DateTime!
+  status: String!
+  studentId: Int!
+  classId: Int!
+  student: Student
+  class: Class
+}
+
+type PaginatedAttendance {
+  data: [AttendanceApp!]!
+  total: Int!
+  page: Int!
+  limit: Int!
+  totalPages: Int!
+}
+
+type Enrollment {
+  id: Int!
+  studentId: Int!
+  classId: Int!
+  enrolledAt: DateTime!
+  student: Student!
+  class: Class!
+}
+
 type Query {
   hello: String!
   studentProfile: Student!
@@ -101,8 +128,13 @@ type Query {
   subject(id: Int!): SubjectEntity!
   getAllClasses(searchInput: ClassSearchInput): [ClassEntity!]!
   getClass(id: Int!): ClassEntity!
+  attendances: [AttendanceApp!]!
+  attendance(id: Int!): AttendanceApp!
+  paginationAttendance(page: Int, limit: Int, search: String): PaginatedAttendance!
   findAllAssigments(searchInput: AssigmentSearchInput): [AssigmentEntity!]!
   findAssigment(id: Int!): AssigmentEntity!
+  allEnrollments: [Enrollment!]!
+  enrollment(id: Int!): Enrollment!
 }
 
 input PaginationSearchInput {
@@ -141,9 +173,14 @@ type Mutation {
   createClass(data: CreateClassInput!): ClassEntity!
   updateClass(id: Int!, data: UpdateClassInput!): ClassEntity!
   deleteClass(id: Int!): ClassEntity!
+  createAttendance(input: CreateAttendanceInput!): AttendanceApp!
+  updateAttendance(input: UpdateAttendanceInput!): AttendanceApp!
+  removeAttendance(id: Int!): AttendanceApp!
   createAssigment(data: CreateAssigmentInput!): AssigmentEntity!
   updateAssigment(data: UpdateAssigmentInput!): AssigmentEntity!
   removeAssigment(id: Int!): AssigmentEntity!
+  createEnrollment(input: CreateEnrollmentInput!): Enrollment!
+  removeEnrollment(id: Int!): Enrollment!
 }
 
 input SendEmailInput {
@@ -221,6 +258,21 @@ input UpdateClassInput {
   subjectId: Int
 }
 
+input CreateAttendanceInput {
+  date: String!
+  status: String!
+  studentId: Int!
+  classId: Int!
+}
+
+input UpdateAttendanceInput {
+  date: String
+  status: String
+  studentId: Int
+  classId: Int
+  id: Int!
+}
+
 input CreateAssigmentInput {
   title: String!
   description: String
@@ -234,4 +286,9 @@ input UpdateAssigmentInput {
   dueDate: DateTime
   subjectId: Int
   id: Int!
+}
+
+input CreateEnrollmentInput {
+  studentId: Int!
+  classId: Int!
 }
